@@ -47,8 +47,8 @@ public class BoardManager : MonoBehaviour {
         float startX = transform.position.x+0.175f;
 		float startY = transform.position.y;
 
-		    Sprite[] previousLeft = new Sprite[ySize];
-		    Sprite previousBelow = null;
+		Sprite[] previousLeft = new Sprite[ySize];
+		Sprite previousBelow = null;
 
 		for (int x = 0; x < xSize; x++) {
 			for (int y = 0; y < ySize; y++) {
@@ -79,10 +79,11 @@ public class BoardManager : MonoBehaviour {
             	}
         	}
     	}
-			for (int x = 0; x < xSize; x++) {
-   			for (int y = 0; y < ySize; y++) {
-        		tiles[x, y].GetComponent<Tile>().ClearAllMatches();
-    		}
+
+		for (int x = 0; x < xSize; x++) {
+			for (int y = 0; y < ySize; y++) {
+				tiles[x, y].GetComponent<Tile>().ClearAllMatches();
+			}
 		}
 
 	}
@@ -101,7 +102,7 @@ public class BoardManager : MonoBehaviour {
     	}
 
     	for (int i = 0; i < nullCount; i++) { // 3
-		GUIManager.instance.Score += 50;
+			GUIManager.instance.Score += 25;
         	yield return new WaitForSeconds(shiftDelay);// 4
         	for (int k = 0; k < renders.Count - 1; k++) { // 5
         	    renders[k].sprite = renders[k + 1].sprite;
@@ -121,13 +122,10 @@ public class BoardManager : MonoBehaviour {
 		if (x < xSize - 1) {
 			possibleCharacters.Remove(tiles[x + 1, y].GetComponent<SpriteRenderer>().sprite);
 		}
-    	if (y > 0) {
-        	possibleCharacters.Remove(tiles[x, y - 1].GetComponent<SpriteRenderer>().sprite);
-    	}
+		if (y > 0) {
+			possibleCharacters.Remove(tiles[x, y - 1].GetComponent<SpriteRenderer>().sprite);
+		}
 
-    	return possibleCharacters[Random.Range(0, possibleCharacters.Count)];
+		return possibleCharacters[Random.Range(0, possibleCharacters.Count)];
 	}
-
-	
-
 }

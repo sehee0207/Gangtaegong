@@ -23,6 +23,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GUIManager : MonoBehaviour {
 	public static GUIManager instance;
@@ -33,6 +34,10 @@ public class GUIManager : MonoBehaviour {
 
 	public Text scoreTxt;
 	public Text moveCounterTxt;
+
+	public Text Excellent;
+	public Text Great;
+	public Text Good;
 
 	private int score;
 	private int moveCounter;
@@ -55,30 +60,45 @@ public class GUIManager : MonoBehaviour {
 
     	set {
         	moveCounter = value;
+			if (moveCounter <= 0) {
+				moveCounter = 0;
+				StartCoroutine(WaitForShifting());
+			}
         	moveCounterTxt.text = moveCounter.ToString();
     	}
 	}
 
 	void Awake() {
-		moveCounter = 60;
+		moveCounter = 2;
 		moveCounterTxt.text = moveCounter.ToString();
 		instance = GetComponent<GUIManager>();
 	}
+
+	
 
 	// Show the game over panel
 	public void GameOver() {
 		GameManager.instance.gameOver = true;
 
-		gameOverPanel.SetActive(true);
+		SceneManager.LoadScene("Ending");
+		Excellent.text = score.ToString();
 
-		if (score > PlayerPrefs.GetInt("HighScore")) {
-			PlayerPrefs.SetInt("HighScore", score);
-			highScoreTxt.text = "New Best: " + PlayerPrefs.GetInt("HighScore").ToString();
-		} else {
-			highScoreTxt.text = "Best: " + PlayerPrefs.GetInt("HighScore").ToString();
-		}
+		// gameOverPanel.SetActive(true);
 
-		yourScoreTxt.text = score.ToString();
+		// if (score > PlayerPrefs.GetInt("HighScore")) {
+		// 	PlayerPrefs.SetInt("HighScore", score);
+		// 	highScoreTxt.text = "New Best: " + PlayerPrefs.GetInt("HighScore").ToString();
+		// } else {
+		// 	highScoreTxt.text = "Best: " + PlayerPrefs.GetInt("HighScore").ToString();
+		// }
+
+		// yourScoreTxt.text = score.ToString();
+	}
+
+	private IEnumerator WaitForShifting() {
+		yield return new WaitUntil(()=> !BoardManager.instance.IsShifting);
+		yield return new WaitForSeconds(.25f);
+		GameOver();
 	}
 
 }

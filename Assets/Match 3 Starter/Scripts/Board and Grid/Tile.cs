@@ -52,36 +52,30 @@ public class Tile : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-	// 1
-    if (render.sprite == null || BoardManager.instance.IsShifting) {
-        return;
-    }
+		// 1
+		if (render.sprite == null || BoardManager.instance.IsShifting) {
+			return;
+		}
 
-    if (isSelected) { // 2 Is it already selected?
-        Deselect();
-    } 
-	else {
-        if (previousSelected == null) 
-			{ // 3 Is it the first tile selected?
-            Select();
-        	} 
-
-		else {
-    		if (GetAllAdjacentTiles().Contains(previousSelected.gameObject)) { // 1
-        	SwapSprite(previousSelected.render); // 2
-			previousSelected.ClearAllMatches();
-        	previousSelected.Deselect();
-			ClearAllMatches();
-    	} 
-		else 
-		{ // 3
-        	previousSelected.GetComponent<Tile>().Deselect();
-        	Select();
-    	}
-}
-
-    	}
+		if (isSelected) { // 2 Is it already selected?
+			Deselect();
+		} else {
+			if (previousSelected == null) { // 3 Is it the first tile selected?
+				Select();
+			} else {
+				if (GetAllAdjacentTiles().Contains(previousSelected.gameObject)) { // 1
+					SwapSprite(previousSelected.render); // 2
+					previousSelected.ClearAllMatches();
+					previousSelected.Deselect();
+					ClearAllMatches();
+				} else { // 3
+					previousSelected.GetComponent<Tile>().Deselect();
+					Select();
+				}
+			}
+		}
 	}
+
 
 	public void SwapSprite(SpriteRenderer render2) { // 1
     	if (render.sprite == render2.sprite) { // 2
@@ -92,6 +86,7 @@ public class Tile : MonoBehaviour {
     	render2.sprite = render.sprite; // 4
     	render.sprite = tempSprite; // 5
     	SFXManager.instance.PlaySFX(Clip.Swap); // 6
+		GUIManager.instance.MoveCounter--;
 	}
 
 	private GameObject GetAdjacent(Vector2 castDir) {
@@ -149,8 +144,6 @@ public class Tile : MonoBehaviour {
 			StopCoroutine(BoardManager.instance.FindNullTiles());
 			StartCoroutine(BoardManager.instance.FindNullTiles());
         	SFXManager.instance.PlaySFX(Clip.Clear);
-			GUIManager.instance.MoveCounter--;
-
     	}
 	}
 
