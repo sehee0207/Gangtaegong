@@ -44,7 +44,7 @@ public class BoardManager : MonoBehaviour {
 	private void CreateBoard (float xOffset, float yOffset) {
 		tiles = new GameObject[xSize, ySize];
 
-        float startX = transform.position.x;
+        float startX = transform.position.x+0.175f;
 		float startY = transform.position.y;
 
 		    Sprite[] previousLeft = new Sprite[ySize];

@@ -348,6 +348,7 @@
 "Assets/Match 3 Starter/Scripts/Board and Grid/BoardManager.cs"
 "Assets/Match 3 Starter/Scripts/Board and Grid/Tile.cs"
 "Assets/Match 3 Starter/Scripts/Effects/GUISizePingPong.cs"
+"Assets/Match 3 Starter/Scripts/HandMade/mfsm.cs"
 "Assets/Match 3 Starter/Scripts/Managers/GameManager.cs"
 "Assets/Match 3 Starter/Scripts/Managers/GUIManager.cs"
 "Assets/Match 3 Starter/Scripts/Managers/SFXManager.cs"
