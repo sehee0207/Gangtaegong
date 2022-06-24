@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
  * Copyright (c) 2017 Razeware LLC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -102,7 +103,7 @@ public class BoardManager : MonoBehaviour {
     	}
 
     	for (int i = 0; i < nullCount; i++) { // 3
-			GUIManager.instance.Score += 25;
+			GUIManager.instance.Score += 100;
         	yield return new WaitForSeconds(shiftDelay);// 4
         	for (int k = 0; k < renders.Count - 1; k++) { // 5
         	    renders[k].sprite = renders[k + 1].sprite;

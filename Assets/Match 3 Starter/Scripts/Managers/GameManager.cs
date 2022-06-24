@@ -130,9 +130,9 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 
-        if (CurrentSceneName != "Menu") {
+        if (CurrentSceneName != "Start") {
 			StopAllCoroutines();
-			LoadScene("Menu");
+			LoadScene("Start");
 			isReturning = true;
         }
 	}

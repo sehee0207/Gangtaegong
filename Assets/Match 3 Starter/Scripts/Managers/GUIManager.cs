@@ -35,10 +35,6 @@ public class GUIManager : MonoBehaviour {
 	public Text scoreTxt;
 	public Text moveCounterTxt;
 
-	public Text Excellent;
-	public Text Great;
-	public Text Good;
-
 	private int score;
 	private int moveCounter;
 
@@ -69,7 +65,7 @@ public class GUIManager : MonoBehaviour {
 	}
 
 	void Awake() {
-		moveCounter = 2;
+		moveCounter = 10;
 		moveCounterTxt.text = moveCounter.ToString();
 		instance = GetComponent<GUIManager>();
 	}
@@ -80,19 +76,11 @@ public class GUIManager : MonoBehaviour {
 	public void GameOver() {
 		GameManager.instance.gameOver = true;
 
+		if (score > PlayerPrefs.GetInt("HighScore")) {
+			PlayerPrefs.SetInt("HighScore", score);
+		}
+		PlayerPrefs.SetInt("score", score);
 		SceneManager.LoadScene("Ending");
-		Excellent.text = score.ToString();
-
-		// gameOverPanel.SetActive(true);
-
-		// if (score > PlayerPrefs.GetInt("HighScore")) {
-		// 	PlayerPrefs.SetInt("HighScore", score);
-		// 	highScoreTxt.text = "New Best: " + PlayerPrefs.GetInt("HighScore").ToString();
-		// } else {
-		// 	highScoreTxt.text = "Best: " + PlayerPrefs.GetInt("HighScore").ToString();
-		// }
-
-		// yourScoreTxt.text = score.ToString();
 	}
 
 	private IEnumerator WaitForShifting() {
